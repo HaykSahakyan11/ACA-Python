@@ -3,5 +3,4 @@ def unicElem(int_list):
     return a[0] if a else -1
 
 
-int_list = [101, 110, 220, 100, 103, 606, 603]
-print(unicElem(int_list))
+print(unicElem([101, 110, 220, 100, 103, 606, 603]))

@@ -1,6 +1,3 @@
-a_list = ["cba", "cba", "cab"]
-
-
 def charMatching(a_list):
     dict_1 = creating_dictionary(a_list)
     if dict_1:
@@ -37,4 +34,4 @@ def creating_dictionary(a_list):
     return dict_1
 
 
-print(charMatching(a_list))
+print(charMatching(["cba", "cba", "cab"]))

@@ -18,5 +18,4 @@ def reverseVowels(a_string):
     return new_string
 
 
-a_string = "aecu"
-print(reverseVowels(a_string))
+print(reverseVowels("aecu"))
