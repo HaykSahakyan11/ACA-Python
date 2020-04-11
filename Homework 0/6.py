@@ -7,14 +7,16 @@ def max_div(a, b):
 
 
 # recursion
-def max_divisor(a, b, c=min(a, b)):
-    if c == 1:
-        return 1
-    else:
-        if a % c == 0 and b % c == 0:
-            return c
-        else:
-            return max_divisor(a, b, c - 1)
+def max_divisor(a, b):
+    if b > 0:
+        a, b = b, a % b
+        return max_divisor(a, b)
+    return a
+
+
+# same as above function but gives error
+def n_div(a, b):
+    return n_div(lambda a, b: b, a % b) if b > 0 else a
 
 
 # print(max_div(a, b)) #comprehension

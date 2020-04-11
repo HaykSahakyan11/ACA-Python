@@ -15,5 +15,4 @@ new_string_list = new_string.lower().split()
 ##print(count_of_words)
 
 # 2
-count_of_words = {a_word: new_string_list.count(a_word) for a_word in new_string_list}
-print(count_of_words)
+print({a_word: new_string_list.count(a_word) for a_word in new_string_list})
