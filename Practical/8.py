@@ -9,7 +9,7 @@ def maxSecNumber(a_list):
     return 0.5 if max2 == float('-inf') or max1 == max2 else max2
 
 
-
+############################################################################
 
 def maximumNumber(a_list,maxnum = None):
     for i in range(len(a_list)):
@@ -17,7 +17,7 @@ def maximumNumber(a_list,maxnum = None):
             maxnum = a_list[i]
     return maxnum
 
-def maxWithSet(a_list):
+def maxSeconNumWithSet(a_list):
     a_list = list(set(a_list))
     if len(a_list) < 2:
         return 0.5
@@ -31,4 +31,4 @@ def maxWithSet(a_list):
 
 a_list = [5, 5, 1, 4, 5]
 #print(maxSecNumber(a_list))
-print(maxWithSet(a_list))
+print(maxSeconNumWithSet(a_list))
