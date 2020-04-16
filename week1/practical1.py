@@ -37,4 +37,17 @@ def calculation(b_list):
     return b_list[0]
 
 
-
+def is_polyndrome(a_string):
+    d = dict()
+    for letter in a_string:
+        if letter not in d:
+            d[letter] = 1
+        else:
+            d[letter] = d[letter] + 1
+    odd = 0
+    for value in d.values():
+        if value % 2 != 0:
+            odd += 1
+    if odd > 1:
+        return False
+    return True
