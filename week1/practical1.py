@@ -2,7 +2,7 @@ def implication3(a, b, c):
     return not a or (b and c)
 
 
-def expr_value1(*args):
+def expr_value(*args):
     a_list = [args[0][i] for i in range(len(args[0]))]
     return calculation(a_list)
 
