@@ -34,7 +34,7 @@ def calculation(b_list):
                 a, b = b_list[ind - 1], b_list[ind + 1]
                 b_list = b_list[:ind - 1] + [float(a) + float(b)] + b_list[ind + 2:]
 
-    return b_list[0]
+    return round(b_list[0],2)
 
 
 def is_polyndrome(a_string):
