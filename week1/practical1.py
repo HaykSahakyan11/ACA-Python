@@ -15,19 +15,16 @@ def calculation(b_list):
                 ind = b_list.index("*")
                 a, b = b_list[ind - 1], b_list[ind + 1]
                 b_list = b_list[:ind - 1] + [float(a) * float(b)] + b_list[ind + 2:]
-        print(b_list)
         if func[i] == "/":
             while "/" in b_list:
                 ind = b_list.index("/")
                 a, b = b_list[ind - 1], b_list[ind + 1]
                 b_list = b_list[:ind - 1] + [float(a) / float(b)] + b_list[ind + 2:]
-        print(b_list)
         if func[i] == "-":
             while "-" in b_list:
                 ind = b_list.index("-")
                 a, b = b_list[ind - 1], b_list[ind + 1]
                 b_list = b_list[:ind - 1] + [float(a) - float(b)] + b_list[ind + 2:]
-        print(b_list)
         if func[i] == "+":
             while "+" in b_list:
                 ind = b_list.index("+")
