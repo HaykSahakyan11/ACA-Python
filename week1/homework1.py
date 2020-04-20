@@ -44,10 +44,23 @@ def bit_concat(a_list):
         new_list.append(("{:08b}".format(a_list[i]))[start:stop])
     return int("".join(new_list[::-1]), 2)
 
-
+"""Version 2"""
 # def bit_concat(a_list):
 #    return int("".join([("{:08b}".format(a_list[i]))[6 - i * 2:8 - i * 2] for i in range(len(a_list))][::-1]), 2)
 
 
 def binary_sum(str1, str2):
     return int(str1, 2) + int(str2, 2)
+
+def only_names(elem):
+    return len(elem) != 0
+
+
+
+def full_name(*args):
+    return " ".join(args)
+
+"""Version 2"""
+
+#def full_name(*args):
+#    return "{} {}".format(*args)
