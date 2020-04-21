@@ -8,20 +8,12 @@ def all_positive(*args):
 """Version 2"""
 
 
-# def all_positive(*args):
-#    return len(list(filter(lambda x: x < 0, args))) and True
+#def all_positive(*args):
+#   return len(list(filter(lambda x: x < 0, args))) and True
+
 
 def xor3(*args):
-    a, b, c = args
-    return [False, True][not (a and b) and (a or b)]
-
-
-def discriminant(a, b, c):
-    g = lambda a, b, c: (b ** 2 - 4 * a * c)
-    return g(a, b, c)
-
-"""Version 2"""
-#discriminant = lambda a,b,c:(b ** 2 - 4 * a * c)
+    return [False, True][args.count(True) % 2 == 1]
 
 
 def mirror_string(a_string):
@@ -52,15 +44,11 @@ def bit_concat(a_list):
 def binary_sum(str1, str2):
     return int(str1, 2) + int(str2, 2)
 
+
 def only_names(elem):
     return len(elem) != 0
 
 
+discriminant = lambda a, b, c: (b ** 2 - 4 * a * c)
 
-def full_name(*args):
-    return " ".join(args)
-
-"""Version 2"""
-
-#def full_name(*args):
-#    return "{} {}".format(*args)
+full_name = lambda *args: " ".join(args)
