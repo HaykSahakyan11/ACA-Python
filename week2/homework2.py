@@ -13,7 +13,7 @@ def bisect_position(a_list, num):
         return bisect_position(a_list[:middle], num)
 
 
-def all_sum(num):
+def all_sums(num):
     # a_list = []
     # for i in range(1, num // 2 + 1):
     #    a_list.append((i, num - i))
