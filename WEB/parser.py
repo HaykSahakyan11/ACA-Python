@@ -6,8 +6,8 @@ def parse_ini(config_path="config.ini"):
     with open(config_path, "r") as ini:
         section = None
         for num_line, line in enumerate(ini, 1):
+            line = line.strip()
             if line != "":
-                line = line.strip()
                 if line.startswith("[") and line.endswith("]"):
                     section = line[1:-1]
                 else:
