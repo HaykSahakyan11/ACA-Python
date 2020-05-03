@@ -11,8 +11,11 @@ def arr_replace_where(array):
     return np.where(array % 2 == 0, 0, array)
 
 
+
+
+
 def arr_repeat(array):
-    return np.repeat(array, 3, )
+    return np.repeat(array, 3)
 
 
 def arr_join(array):
