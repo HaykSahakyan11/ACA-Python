@@ -3,9 +3,6 @@ import random
 import json
 
 
-
-
-
 def printBoard(board):
     print(theBoard[0][0] + '|' + theBoard[0][1] + '|' + theBoard[0][2])
     print('-+-+-')

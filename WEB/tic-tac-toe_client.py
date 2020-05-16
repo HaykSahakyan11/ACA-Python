@@ -10,7 +10,6 @@ def printBoard(board):
     print(theBoard[2][0] + '|' + theBoard[2][1] + '|' + theBoard[2][2])
 
 if __name__ == "__main__":
-
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as client:
         client.connect(("127.0.0.1", 9000))
         data = client.recv(1024)
