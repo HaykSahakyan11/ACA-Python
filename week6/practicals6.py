@@ -159,4 +159,47 @@ class RomanNumeral:
 
 
 
+class Person:
+    def __init__(self, name: str, last_name: str, age: int, gender, student: bool, password):
+        self.name = name
+        self.last_name = last_name
+        self.age = age
+        self.gender = gender
+        self.student = student
+        self.__password = password
+
+    def Read_file (self,path):
+        try:
+            file = open("{}.txt".format(path),"r")
+            print("All correct")
+        except FileNotFoundError as err:
+            print(err)
+        except Exception as err:
+            print(err)
+        else:
+            file.close()
+
+
+
+    def Greeting(self, second_person):
+        # if isinstance(second_person,Person):
+        if second_person.__class__.__name__ == self.__class__.__name__:
+            print("Welcome dear {}".format(second_person.name))
+        else:
+            raise ValueError("{} is not {}".format(second_person, self.__class__.__name__))
+
+    def Goodbye(self):
+        print("Bye everyone!")
+
+    def Favourite_num(self, num1):
+        return "My favorite num is {}".format(num1)
+
+#a = Person("Name1", "Last_name1", 29, "male", True, 123)
+#b = Person("Name2", "Last_name2", 30, "female", False, 456)
+#
+#a.Read_file("hhhhh")
+
+
+
+
 
