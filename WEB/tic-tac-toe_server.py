@@ -3,78 +3,57 @@ import random
 import json
 
 
-def printBoard(board):
+def printBoard(theBoard):
     print(theBoard[0][0] + '|' + theBoard[0][1] + '|' + theBoard[0][2])
     print('-+-+-')
     print(theBoard[1][0] + '|' + theBoard[1][1] + '|' + theBoard[1][2])
     print('-+-+-')
     print(theBoard[2][0] + '|' + theBoard[2][1] + '|' + theBoard[2][2])
 
-def clientStep(row,col, steps = 0):
-    if theBoard[row-1][col-1] == " ":
-        theBoard[row-1][col-1] = "X"
-        steps +=1
+
+def clientStep(theBoard, row, col):
+    theBoard[row - 1][col - 1] = "X"
+    return theBoard
 
 
+def serverStep(theBoard):
+    while True:
+        row = random.randint(1, 3)
+        col = random.randint(1, 3)
+        if theBoard[row - 1][col - 1] == " ":
+            theBoard[row - 1][col - 1] = "O"
+            return theBoard
 
 
-def serverStep(steps = 0):
-    row = random.randint(1,3)
-    col = random.randint(1,3)
-    if theBoard[row-1][col-1] == " ":
-        theBoard[row-1][col-1] = "O"
-        steps += 1
+def result(theBoard, steps):  # to check if there is an outcome of the game
+    winner = 0
+    if steps < 5:  # can not be outcome
+        return winner
+    elif steps == 9:  # max step
+        winner = "Draw"
+        print("\nGame Over.")
+        print(" **** {} ****".format(winner))
+        return winner
+    else:
+        X = [0, 1, 2]
+        x1, x2, x3 = X
+        for i in range(3):
+            if theBoard[i][x1] == theBoard[i][x2] == theBoard[i][x3] != " ":  # horizontal
+                winner = theBoard[i][x1]
+                pass
+            if theBoard[x1][i] == theBoard[x2][i] == theBoard[x3][i] != " ":  # vertical
+                winner = theBoard[x1][i]
+                pass
+        if theBoard[x1][x1] == theBoard[x2][x2] == theBoard[x3][x3] != " " or \
+                theBoard[len(X) - 1 - x1][x1] == theBoard[len(X) - x2][x2] == theBoard[len(X) - 1 - x3][
+            x3] != " ":  # diagonals
+            winner = theBoard[x1][x1]
+        if winner:
+            print("\nGame Over.")
+            print(" **** {} won. ****".format(winner))
+    return winner
 
-def status(theBoard):
-    if theBoard[0][0] == theBoard[0][1] == theBoard[0][2] != ' ':  # across the top
-        printBoard(theBoard)
-        print("\nGame Over.\n")
-        winner = theBoard[0][0]
-        print(" **** {} won. ****".format(winner))
-        return winner
-    elif theBoard[1][0] == theBoard[1][1] == theBoard[1][2] != ' ':  # across the middle
-        printBoard(theBoard)
-        print("\nGame Over.\n")
-        winner = theBoard[1][0]
-        print(" **** {} won. ****".format(winner))
-        return winner
-    elif theBoard[2][0] == theBoard[2][1] == theBoard[2][2] != ' ':  # across the bottom
-        printBoard(theBoard)
-        print("\nGame Over.\n")
-        winner = theBoard[2][0]
-        print(" **** {} won. ****".format(theBoard[2][0]))
-        return 1
-    elif theBoard[0][0] == theBoard[1][0] == theBoard[2][0] != ' ':  # down the left side
-        printBoard(theBoard)
-        print("\nGame Over.\n")
-        winner = theBoard[0][0]
-        print(" **** {} won. ****".format(winner))
-        return winner
-    elif theBoard[0][1] == theBoard[1][1] == theBoard[2][1] != ' ':  # down the middle
-        printBoard(theBoard)
-        print("\nGame Over.\n")
-        winner = theBoard[0][1]
-        print(" **** {} won. ****".format(winner))
-        return winner
-    elif theBoard[0][2] == theBoard[1][2] == theBoard[2][2] != ' ':  # down the right side
-        printBoard(theBoard)
-        print("\nGame Over.\n")
-        winner = theBoard[0][2]
-        print(" **** {} won. ****".format(winner))
-        return winner
-    elif theBoard[0][0] == theBoard[1][1] == theBoard[2][2] != ' ':  # diagonal
-        printBoard(theBoard)
-        print("\nGame Over.\n")
-        winner = theBoard[0][0]
-        print(" **** {} won. ****".format(winner))
-        return winner
-    elif theBoard[0][2] == theBoard[1][1] == theBoard[2][0] != ' ':  # diagonal
-        printBoard(theBoard)
-        print("\nGame Over.\n")
-        winner = theBoard[0][2]
-        print(" **** {} won. ****".format(winner))
-        return winner
-    return 0
+
 
 if __name__ == "__main__":
     theBoard = [[" ", " ", " "], [" ", " ", " "], [" ", " ", " "]]
@@ -87,47 +66,26 @@ if __name__ == "__main__":
         with conn:
             print("Connected by", addr)
             conn.sendall("Lets play? (Yes or No)".encode())
-            data = conn.recv(102)
+            data = conn.recv(1024)
             data = data.decode()
             if data == "Yes":
-
+                info_sent = json.dumps(list([theBoard, 0]))
+                conn.sendall(info_sent.encode())
+                steps = 0
                 while True:
-                    json_theBoard = json.dumps(theBoard)
-                    conn.sendall(json_theBoard.encode())
                     data = conn.recv(102)
-                    data = data.decode().split(",")
-                    row, col = data[0], data[1]
-                    row = int(row)
-                    col = int(col)
-                    steps = 0
-                    clientStep(row,col)
-                    a = status(theBoard)
-                    if a != 0:
-                        conn.sendall(a.encode())
-                        break
+                    data = data.decode()
+                    steps += 1
+                    if data != "":
+                        row, col = map(int, data.split(","))
+                        theBoard = clientStep(theBoard, row, col)
+                        current_result = result(theBoard, steps)
+                        if current_result == 0:
+                            theBoard = serverStep(theBoard)
+                            steps += 1
+                            current_result = result(theBoard, steps)
+                        info_sent = json.dumps(list([theBoard, current_result]))
+                        conn.sendall(info_sent.encode())
                     else:
-                        serverStep()
-                        if status(theBoard) == 0:
-                            json_theBoard = json.dumps(theBoard)
-                            conn.sendall(json_theBoard.encode())
-
-                        else:
-                            conn.sendall(status(theBoard).encode())
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                        break
 
