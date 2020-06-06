@@ -24,8 +24,12 @@ def find(key_searched, dictionary: dict, answer=[]):
     return ["'{}' not found ".format(key_searched), answer][answer != 0]
 
 
-def problem_3(obj: object) -> str:
-    return json.dumps(obj.__dict__)
+import pickle
+
+
+def problem_3(obj: object, path="class_pickle.pkl"):
+    with open(path, "wb") as pickle_file:
+        pickle.dump(obj, pickle_file)
 
 
 def problem_4(A_Class: type, json_data: json) -> object:
@@ -82,10 +86,7 @@ def problem_10():
     tree = ET.parse("movies.xml")
     root = tree.getroot()
     searched_attrib = "multiple"
-    dictionary = {"False": "No", "True": "Yes"}
-    for elem in root.findall(".//format/[@multiple]"):
-        attrib_value = elem.attrib[searched_attrib]
-        if attrib_value in dictionary:
-            elem.attrib[searched_attrib] = dictionary[attrib_value]
+    for elem in root.findall(".//format"):
+        elem.attrib[searched_attrib] = ["No", "Yes"][len(elem.text.split(",")) > 1]
     return tree.write("updated_movies_2.xml")
 
