@@ -90,3 +90,37 @@ def problem_10():
         elem.attrib[searched_attrib] = ["No", "Yes"][len(elem.text.split(",")) > 1]
     return tree.write("updated_movies_2.xml")
 
+
+
+def validation_dec_year_movie_year(tree):
+    root = tree.getroot()
+    for genre in root.findall(".//genre"):
+        for dec in genre.findall(".//decade"):
+            for movie in dec.findall(".//movie"):
+                for year in movie.findall(".//year"):
+                    dec_year_num = int(dec.attrib["years"][:-1])
+                    movie_year_num = int(year.text)
+                    delta = movie_year_num - dec_year_num
+                    if delta > 9 or delta < 0:
+                        new_dec_year = "{}s".format(movie_year_num - delta % 10)
+                        x = root.find(".//decade/[@years ='{}']".format(new_dec_year))
+                        if x:
+                            x.insert(0, movie)
+                        else:
+                            new_tag = ET.SubElement(dec,"decade", attrib= {"years":new_dec_year})
+                            new_tag.append(movie)
+                            print(dec.attrib,"dec")
+                            print(movie.attrib["title"], "movie")
+                            print(year.attrib, "year")
+                        root[genre][dec].remove(movie)
+                        return validation_dec_year_movie_year(tree)
+    return tree
+
+
+
+
+
+
+tree = ET.parse("movies.xml")
+tree = validation_dec_year_movie_year(tree)
+tree.write("updated_movies_3.xml")
