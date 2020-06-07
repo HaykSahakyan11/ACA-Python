@@ -105,22 +105,17 @@ def validation_dec_year_movie_year(tree):
                         new_dec_year = "{}s".format(movie_year_num - delta % 10)
                         x = root.find(".//decade/[@years ='{}']".format(new_dec_year))
                         if x:
-                            x.insert(0, movie)
+                            x.insert(0,movie)
                         else:
-                            new_tag = ET.SubElement(dec,"decade", attrib= {"years":new_dec_year})
+                            new_tag = ET.SubElement(genre, "decade", attrib={"years": new_dec_year})
                             new_tag.append(movie)
-                            print(dec.attrib,"dec")
-                            print(movie.attrib["title"], "movie")
-                            print(year.attrib, "year")
-                        root[genre][dec].remove(movie)
+                        dec.remove(movie)
                         return validation_dec_year_movie_year(tree)
     return tree
 
 
 
-
-
-
-tree = ET.parse("movies.xml")
-tree = validation_dec_year_movie_year(tree)
-tree.write("updated_movies_3.xml")
+def problem_11():
+    tree = ET.parse("movies.xml")
+    tree = validation_dec_year_movie_year(tree)
+    return tree.write("updated_movies_3.xml")
