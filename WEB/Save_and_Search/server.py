@@ -112,7 +112,7 @@ def not_found(env):
 # as there is no need to describe other functions, "not_found" function is used instead of particular functions
 ROUTING_TABLE = {
     '/create': {
-        'GET': not_found,
+        'GET': get_create,
         "POST": post_create
     },
     '/search': {
