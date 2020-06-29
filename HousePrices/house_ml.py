@@ -13,6 +13,7 @@ pd.set_option('display.max_rows', 500)
 pd.set_option('display.max_columns', 500)
 pd.set_option('display.width', 1000)
 
+
 # The goal of this class is
 # - to get data (from database which parameters were set in config.ini file)
 # - to prepare data for further processing (data_cleaning, data_transformation methods)
