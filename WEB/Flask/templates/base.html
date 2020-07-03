@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Flask app - {% block html_title %}{% endblock %}</title>
+		<link rel="stylesheet" href="/static/styles.css" />
+	</head>
+	<body>
+		<heading>
+			<a href="/">Demo Flask Application</a>
+			{% block heading %}  {% endblock %}
+
+		</heading>
+		<div class="content">
+			{% with messages = get_flashed_messages(with_categories=true) %}
+				{% if messages %}
+					{% for category, message in messages %}
+						<div class="{{ category }}-box">{{ message }}</div>
+					{% endfor %}
+				{% endif %}
+			{% endwith %}
+
+			{% block content %}{% endblock %}
+		</div>
+		<footer>
+			<a href="/">Home</a>
+			<a href="/create">Create</a>
+			<a href="/search">Search</a>
+			{% block footer %} Copyright &copy; 2020 {% endblock %}
+  		</footer>
+	</body>
+</html>

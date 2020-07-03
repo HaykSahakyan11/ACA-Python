@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block html_title %}
+    Search
+{% endblock %}
+
+
+
+{% block content %}
+
+    <form method="GET" class="form-field">
+
+        <div class="form-field">
+            <label for="search_param">Name</label>
+            <input type="text" name="search_param" id="search_param" placeholder="First name or Last name"/>
+        </div>
+
+        <div class="form-field">
+            <input type="submit" value="Search" class="form-btns" >
+        </div>
+
+    </form>
+
+    <div class="main">
+        {% if persons %}
+            <table border="1">
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Gender</th>
+                    <th>Age</th>
+                </tr>
+                {% for person in persons %}
+                    <tr>
+                        <th>{{ person[0] }}</th>
+                        <th>{{ person[1] }}</th>
+                        <th>{{ person[2] }}</th>
+                        <th>{{ person[3] }}</th>
+                    </tr>
+                {% endfor%}
+            </table>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block html_title %}
+    Create
+{% endblock %}
+
+{% block content %}
+
+    <form id="person_info_form" class="form-field" method="POST">
+
+        <div class="form-field">
+            <label for="user_first_name">First name</label>
+            <input type="text" name="user_first_name" id="user_first_name" class="form-control" placeholder="Your first name" required/><br>
+        </div>
+
+        <div class="form-field">
+            <label>Last name</label>
+            <input type="text" name="user_last_name" id="user_last_name" class="form-control" placeholder="Your last name" required/><br>
+        </div>
+
+        <div class="form-field">
+            <label for="user_gender">Gender</label>
+            <select name="user_gender" id="user_gender" class="form-control" required>
+                <option></option>
+                <option value="men">Men</option>
+                <option value="women">Women</option>
+            </select>
+        </div>
+
+        <div class="form-field">
+            <label for="user_age">Age</label>
+            <input type="number" name="user_age" id="user_age" min="0" class="form-control" placeholder="Your age"/><br>
+        </div>
+
+        <div class="form-field">
+            <input type="submit" value="Send your Data" class="form-btns"><br>
+        </div>
+
+    </form>
+    {{ main_text }}
+{% endblock %}
