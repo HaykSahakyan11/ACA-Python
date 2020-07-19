@@ -1,3 +1,6 @@
+import os
+import secrets
+from PIL import Image
 from flask import render_template, url_for, redirect, flash, request
 from app import app, db, bcrypt
 from app.forms import RegistrationForm, LoginForm, UpdateAccountForm
@@ -81,20 +84,48 @@ def logout():
     return redirect(url_for('index'))
 
 
-@app.route('/account', methods=['GET', 'POST'])
+def save_prof_picture(form_picture):
+    random_hex = secrets.token_hex(8)
+    _, f_ext = os.path.splitext(form_picture.filename)
+    picture_fn = random_hex + f_ext
+    picture_path = os.path.join(app.root_path, 'static/profile_pics', picture_fn)
+
+    output_size = (125, 125)
+    i = Image.open(form_picture)
+    i.thumbnail(output_size)
+    i.save(picture_path)
+
+    return picture_fn
+
+
+@app.route('/account', methods=['POST'])
 @login_required
 def account():
     form = UpdateAccountForm()
     if form.validate_on_submit():
-        current_user.username = form.username.data
-        current_user.email = form.email.data
-        db.session.commit()
-        flash("Your account has been updated", 'success')
-        return redirect(url_for('account'))
-    elif request.method == 'GET':
-        form.username.data = current_user.username
-        form.email.data = current_user.email
+        data_not_changed = (current_user.username != form.username.data)
+        if not data_not_changed and not form.picture.data:
+            flash("No changes", 'success')
+        else:
+            if data_not_changed:
+                current_user.username = form.username.data
+                current_user.email = form.email.data
+            elif form.picture.data:
+                picture_file = save_prof_picture(form.picture.data)
+                current_user.image_file = picture_file
+            db.session.commit()
+            flash("Your account has been updated", 'success')
+        return redirect(url_for('account_get'))
 
+    return redirect(url_for('account_get'))
+
+
+@app.route('/account', methods=['GET'])
+@login_required
+def account_get():
+    form = UpdateAccountForm()
+    form.username.data = current_user.username
+    form.email.data = current_user.email
     image_file = url_for('static', filename=f'profile_pics/{current_user.image_file}')
     return render_template('account.html',
                            title='Account', image_file=image_file, form=form)
