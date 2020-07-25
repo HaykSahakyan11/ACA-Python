@@ -11,9 +11,6 @@ def arr_replace_where(array):
     return np.where(array % 2 == 0, 0, array)
 
 
-
-
-
 def arr_repeat(array):
     return np.repeat(array, 3)
 
@@ -28,3 +25,5 @@ def arr_intersection(arr1, arr2):
 
 def arr_random(a_tuple):
     return np.random.uniform(5, 10, size=(a_tuple[0], a_tuple[1]))
+
+

@@ -3,29 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <title>Create</title>
+    <style>
+        * {
+        box-sizing: border-box;
+		}
+        #person_info_form label {
+            display:block
+        }
+        body {
+            background: #eee;
+            margin: 10px;
+        }
+        #person_info_form {
+            border: 2px solid;
+            padding: 1%;
+            width: 220px;
+            margin: auto;
+            margin-top: 10%;
+            background: #fff
+        }
+        input[type="text"], input[type="number"], select {
+			width: 100%;
+		}
+		.form-field {
+		    margin-bottom: 4%;
+		}
+		.form-btns {
+			text-align: right;
+		}
+    </style>
+
 </head>
 <body>
-<form method="POST">
-    <div>
+<form id="person_info_form" method="POST">
+    <div class="form-field">
         <label>First name</label>
         <input type="text" name="user_first_name" required/>
     </div>
-    <div>
+    <div class="form-field">
         <label>Last name</label>
         <input type="text" name="user_last_name" required/>
     </div>
-    <div>
+    <div class="form-field">
         <label>Gender</label>
         <select name="user_gender" required>
+            <option></option>
             <option value="men">Men</option>
             <option value="women">Women</option>
         </select>
     </div>
-    <div>
+    <div class="form-field">
         <label>Age</label>
         <input type="number" min="0"  name="user_age" required/>
     </div>
-        <div>
+    <div class="form-btns">
         <input type="submit" value="Send your Data">
     </div>
 

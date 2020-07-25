@@ -7,6 +7,7 @@ from urllib.parse import parse_qs
 import csv
 import os.path
 import pandas as pd
+from flask import  Flask
 
 
 class HTTPError(Exception):
@@ -123,6 +124,7 @@ ROUTING_TABLE = {
 
 
 def app(env: dict, start_response: callable) -> Iterable:
+    print(env.items())
     route = env['PATH_INFO']
     method = env['REQUEST_METHOD']
     try:

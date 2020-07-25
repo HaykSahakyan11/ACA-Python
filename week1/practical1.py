@@ -31,7 +31,7 @@ def calculation(b_list):
                 a, b = b_list[ind - 1], b_list[ind + 1]
                 b_list = b_list[:ind - 1] + [float(a) + float(b)] + b_list[ind + 2:]
 
-    return round(b_list[0],2)
+    return round(b_list[0], 2)
 
 
 def is_polyndrome(a_string):
@@ -48,3 +48,6 @@ def is_polyndrome(a_string):
     if odd > 1:
         return False
     return True
+
+
+print(expr_value("6-5*4/3+3-2*4"))

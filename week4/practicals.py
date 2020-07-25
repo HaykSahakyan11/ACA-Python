@@ -57,3 +57,25 @@ def problem5(path='netflix_titles.csv'):
     plt.legend()
     plt.show()
     return sorted_netflix
+
+def problem6():
+    netflix = pd.read_csv('netflix_titles.csv')
+
+    netflix['date_added'] = pd.to_datetime(netflix['date_added'])
+
+    netflix["year_month"] = netflix.date_added.dt.to_period("M")
+    netflix.sort_values(by=["date_added"],inplace = True)
+
+    plt.style.use("fivethirtyeight")
+    plot_data = netflix.groupby(["year_month"]).count()["show_id"]
+    print(plot_data.index.dtype)
+    print(netflix.type.dtype)
+    xaxis = plot_data.index.astype(str)
+    plt.plot(xaxis,plot_data,linewidth = 2)
+    plt.xticks(xaxis,rotation = "vertical")
+    plt.tight_layout()
+    plt.show()
+
+    return netflix
+
+print(problem6())

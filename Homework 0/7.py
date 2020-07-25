@@ -3,8 +3,9 @@ new_string = ""
 for char in a_string:
     if not 33 <= ord(char) <= 64:
         new_string = new_string + char
+print(new_string)
 new_string_list = new_string.lower().split()
-
+print(new_string_list)
 ## 1
 # count_of_words = {}
 # for a_word in new_string_list:

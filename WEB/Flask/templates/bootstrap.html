@@ -1,0 +1,148 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Flask app - {% block html_title %}{% endblock %}</title>
+		<link rel="stylesheet" href="/static/styles.css" />
+		<style>
+			#person_info_form {
+            border: 2px solid;
+            padding: 1%;
+            width: 220px;
+            margin: auto;
+            margin-top: 10%;
+            background: #fff
+        	}
+        </style>
+	</head>
+	<body>
+		<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+			<h5 class="my-2 mr-md-auto font-weight-normal">Demo Flask Application</h5>
+			<nav class="my-2 my-md-0 mr-md-3">
+				<a class="p-2 text-dark" href="/">Home</a>
+				<a class="p-2 text-dark" href="/search">Search</a>
+			</nav>
+		</div>
+		{% block body %}{% endblock %}
+	<footer >
+    <div class="row">
+      <div class="col-12 col-md">
+        <img class="mb-2" src="/docs/4.5/assets/brand/bootstrap-solid.svg" alt="" width="24" height="24">
+        <small class="d-block mb-3 text-muted">© 2020</small>
+      </div>
+      <div class="col-5 col-md">
+        <h5>Features</h5>
+        <ul class="list-unstyled text-small">
+          <li><a class="text-muted" href="#">Cool stuff</a></li>
+          <li><a class="text-muted" href="#">Random feature</a></li>
+        </ul>
+      </div>
+      <div class="col-6 col-md">
+        <h5>Resources</h5>
+        <ul class="list-unstyled text-small">
+          <li><a class="text-muted" href="#">Resource</a></li>
+          <li><a class="text-muted" href="#">Resource name</a></li>
+        </ul>
+      </div>
+      <div class="col-6 col-md">
+        <h5>About</h5>
+        <ul class="list-unstyled text-small">
+          <li><a class="text-muted" href="#">Privacy</a></li>
+          <li><a class="text-muted" href="#">Terms</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+	</body>
+</html>
+
+* {
+	box-sizing: border-box;
+}
+
+#person_info_form {
+    padding: 1%;
+    width: 330px;
+    margin: auto;
+    margin-top: auto;
+    margin-top: 10%;
+    background: #fff;
+    border-bottom: 1px solid #ccc;
+}
+#person_info_form label {
+    display: block;
+}
+input[type="text"], input[type="number"], select {
+			width: 100%;
+}
+
+body {
+	margin: 0px;
+	padding: 10px;
+	overflow: hidden;
+}
+
+form .form-field {
+	margin-bottom: 2%;
+}
+
+form .form-field label,input[type="text"],input[type="password"] {
+	width: 100%;
+}
+
+form .form-field label {
+	display: block;
+}
+
+heading, footer {
+	width: 100%;
+	position: fixed;
+	background: #eee;
+}
+
+heading {
+	top: 0px;
+	border-bottom: 1px solid #ccc;
+	padding: 1%;
+}
+
+heading a {
+	text-decoration: none;
+    cursor: pointer;
+    color: #000;
+    font-weight: bold;
+    font-size: 1.5em;
+}
+
+footer {
+	bottom: 0px;
+	text-align: center;
+	padding: 0.5% 0%;
+	color: #000;
+	border-top: 1px solid #ccc;
+}
+
+.content {
+	margin-top: 15vh;
+	overflow: auto;
+	height: 76vh;
+	padding: 1%;
+}
+
+.info-box, .error-box {
+	text-align: center;
+	margin-bottom: 2%;
+	padding: 2%;
+	width: 100%;
+	font-weight: bold;
+}
+
+.info-box {
+	border: 2px solid blue;
+	color: blue;
+}
+
+.error-box {
+	border: 2px solid red;
+	color: red;
+}
